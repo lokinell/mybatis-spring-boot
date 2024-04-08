@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.mybatis.repository.StudentMapper">
+    <resultMap id="StudentResultMap" type="Student">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, email
+    </sql>
+    <select id="findAllStudents" resultMap="StudentResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM student
+    </select>
+    <insert id="insertStudent" parameterType="Student">
+        INSERT INTO student(name, email)
+        VALUES (#{name}, #{email})</insert>
+    <update id="updateStudent">
+        UPDATE
+        student SET
+        <if test="student.name!=null">name=#{student.name},</if>
+        <if test="student.email!=null">email=#{student.email}</if>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteStudent" parameterType="int">
+        DELETE
+        FROM student
+        WHERE id = #{id}
+    </delete>
+
+    <select id="selectStudentById" resultType="Student">
+        select id, name, email
+        from student
+        where id = #{id}
+    </select>
+</mapper>

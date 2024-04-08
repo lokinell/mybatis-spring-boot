@@ -1,0 +1,23 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  data:
+    web:
+      pageable:
+        max-page-size: 200
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/demo?characterEncoding=utf8
+    username: demo
+    password: demo
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    org.springframework.web: INFO
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
+    com.github.gxboard.spring-data-jdbc-mybatis: TRACE
+    com.github.gxboard.spring-data: TRACE
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  type-aliases-package: com.learn.mybatis.domain
+  mapper-locations: classpath:mybatis/*.xml
