@@ -2,6 +2,8 @@ package com.learn.mybatis.repository;
 
 import com.learn.mybatis.domain.Student;
 import org.assertj.core.api.Assertions;
+import org.jeasy.random.EasyRandom;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -19,14 +21,16 @@ public class StudentMapperTest {
     @Autowired
     private StudentMapper studentMapper;
 
+    @BeforeClass
+    public static void setUp() {
+    }
+
     @Test
     public void findByStateTest() {
         List<Student> before = studentMapper.findAllStudents();
-        Student newStudent = Student.builder()
-                .name("loki")
-                .email("lokinell@gmail.com")
-                .build();
-        studentMapper.insertStudent(newStudent);
+        EasyRandom generator = new EasyRandom();
+        Student source = generator.nextObject(Student.class);
+        studentMapper.insertStudent(source);
         List<Student> after = studentMapper.findAllStudents();
         Assertions.assertThat(after.size() - before.size()).isEqualTo(1);
     }

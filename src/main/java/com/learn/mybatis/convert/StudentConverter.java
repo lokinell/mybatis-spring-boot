@@ -9,10 +9,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface StudentConverter {
 
+    @Mapping(source = "studentID", target = "id")
+    Student toStudent(StudentDTO studentDTO);
+
     @InheritInverseConfiguration
     StudentDTO fromStudent(Student student);
 
-    @Mapping(source = "studentID", target = "id")
-    Student toStudent(StudentDTO studentDTO);
 
 }
